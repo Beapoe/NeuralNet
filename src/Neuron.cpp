@@ -40,7 +40,27 @@ double Neuron::init(int numInputs){
 }
 
 void calc(){
-
+	if(inputs.size() != 0){
+		double total;
+		for(int i=0;i<=inputs.size();i++){
+			if(i == inputs.size()){
+				total += bias*weights[i];
+			}
+			else{
+				total += inputs[i]*weights[i];
+			}
+		}
+		switch AC{
+			case Linear:output = Linear(k,b,total);
+						break;
+			case Sigmoid:output = Sigmoid(total);
+						 break;
+			case HyperTan:output = HyperTan(total);
+						  break;
+			case HardThreshold:output = HardThreshold(total);
+							   break;
+		}
+	}
 }
 
 double Neuron::getBias(){
