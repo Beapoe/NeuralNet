@@ -3,6 +3,8 @@
 
 #include <list>
 #include <cstdlib>
+#include <random>
+#include <ctime>
 #include "tools.h"
 using namespace std;
 

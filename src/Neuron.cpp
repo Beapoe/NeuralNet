@@ -11,47 +11,47 @@ Neuron::Neuron(int numInputs){
 	double weight,nbias;
 	double DMax = numeric_limits<double>::max();
 	double DMin = numeric_limits<double>::min();
+	uniform_real_distribution<double> u(DMin,DMax);
 	for(int i=0;i<numInputs+1;i++){
 		if(i == numInputs){
-			uniform_real_distribution<double> u(DMin,DMax);
 			nbias = u(e);
 			bias = nbias;
 			break;
 		}
 		weight = u(e);
-		weight.push(weight);
+		weights.push_back(weight);
 	}
 }
 
-double Neuron::init(int numInputs){
+void Neuron::init(int numInputs){
 	default_random_engine e(time(0));
 	double weight,nbias;
 	double DMax = numeric_limits<double>::max();
 	double DMin = numeric_limits<double>::min();
+	uniform_real_distribution<double> u(DMin,DMax);
 	for(int i=0;i<numInputs+1;i++){
 		if(i == numInputs){
-			uniform_real_distribution<double> u(DMin,DMax);
 			nbias = u(e);
 			bias = nbias;
 			break;
 		}
 		weight = u(e);
-		weight.push(weight);
+		weights.push_back(weight);
 	}
 }
 
-void calc(){
+void Neuron::calc(){
 	if(inputs.size() != 0){
 		double total;
 		for(int i=0;i<=inputs.size();i++){
 			if(i == inputs.size()){
-				total += bias*weights[i];
+				total += bias*getDL(i,weights);
 			}
 			else{
-				total += inputs[i]*weights[i];
+				total += getDL(i,inputs)*getDL(i,weights);
 			}
 		}
-		switch AC{
+		switch (AC){
 			case linear:output = Linear(k,b,total);
 						break;
 			case sigmoid:output = Sigmoid(total);
