@@ -2,7 +2,7 @@
 #define TOOLS_H
 #include <list>
 using namespace std;
-
+enum LType {input,hidden,output};
 enum ActivateFunction {linear,sigmoid,hyperTan,hardThreshold};
 
 double getDL(int index,list<double> l);

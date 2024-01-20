@@ -3,15 +3,22 @@
 #include <list>
 using namespace std;
 
-double getDL(int index,list<double> l){
+auto getL(int index,list<> l){
 	double counter = 0;
 	double value;
-	for(double i:l){
-		if(counter == index)
-			value = i;
-		counter++;
+	try{
+		if(index > l.size() || l == null)
+			throw 0;
+		for(double i:l){
+			if(counter == index)
+				value = i;
+			counter++;
+		}
+		return value;
+	}catch(int* s){
+		cout<<"索引大于列表或列表为空";
+		exit();
 	}
-	return value;
 }
 double Linear(double sk,double sb,double input){
 	return input*sk+sb;
