@@ -1,5 +1,6 @@
 #include "tools.h"
 #include "include/Neuron.h"
+#include <list>
 #include <ctime>
 #include <random>
 #include <limits>
@@ -51,13 +52,13 @@ void calc(){
 			}
 		}
 		switch AC{
-			case Linear:output = Linear(k,b,total);
+			case linear:output = Linear(k,b,total);
 						break;
-			case Sigmoid:output = Sigmoid(total);
+			case sigmoid:output = Sigmoid(total);
 						 break;
-			case HyperTan:output = HyperTan(total);
+			case hyperTan:output = HyperTan(total);
 						  break;
-			case HardThreshold:output = HardThreshold(total);
+			case hardThreshold:output = HardThreshold(total);
 							   break;
 		}
 	}
@@ -104,7 +105,7 @@ void Neuron::setB(double nb){
 }
 
 void Neuron::setInputs(list<double> ninputs){
-	inputs = ninputs;
+    inputs = ninputs;
 }
 
 void Neuron::setWeights(list<double> nweights){

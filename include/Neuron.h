@@ -4,6 +4,7 @@
 #include <list>
 #include <cstdlib>
 #include "tools.h"
+using namespace std;
 
 class Neuron{
 	private:
@@ -31,4 +32,6 @@ class Neuron{
 		void setWeights(list<double> nweights);
 		void setActivateFunction(ActivateFunction nac);
 		void setNumInputs(int nnuminputs);
-}
+};
+
+#endif
