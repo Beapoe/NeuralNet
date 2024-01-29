@@ -4,23 +4,45 @@
 #include <iostream>
 using namespace std;
 
-double getL(int index,list<double> l){
+double getL(int index,string type,ist<double> l){
 	double counter = 0;
-	double value;
-	try{
-		if(index > l.size() || l.empty())
-			throw 0;
-		for(double i:l){
-			if(counter == index)
-				value = i;
-			counter++;
+	switch (type){
+		case "d":double value;
+			     try{
+				    if(index > l.size() || l.empty())
+					    throw 1;
+				    for(double i:l){
+					    if(counter == index){
+							value = i;
+							break;
+						}
+					    counter++;
+				    }
+				    return value;
+			     }catch(int* s){
+				    cout<<"索引大于列表或列表为空";
+				    exit(s);
+			     }
+				 break;
+		case "n":Neuron value;
+				 try{
+					 if(index > l.size() || l.empty()){
+						 throw 1;
+					 for(double i:l){
+						 if(counter == index){
+							 value = i;
+							 break;
+						 }
+						 counter++;
+					 }
+					 return value;
+			}catch(int* s){
+				cout<<"索引大于列表或列表为空";
+				exit(s);
+			}
 		}
-		return value;
-	}catch(int* s){
-		cout<<"索引大于列表或列表为空";
-		exit(1);
-	}
 }
+
 double Linear(double sk,double sb,double input){
 	return input*sk+sb;
 }
