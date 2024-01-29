@@ -5,7 +5,7 @@ using namespace std;
 enum LType {input,hidden,output};
 enum ActivateFunction {linear,sigmoid,hyperTan,hardThreshold};
 
-double getDL(int index,list<double> l);
+double getL(int index,list<double> l);
 double Linear(double sk,double sb,double input);
 double HyperTan(double input);
 double Sigmoid(double input);

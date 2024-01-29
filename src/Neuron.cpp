@@ -1,5 +1,5 @@
 #include "tools.h"
-#include "include/Neuron.h"
+#include "Neuron.h"
 #include <list>
 #include <ctime>
 #include <random>

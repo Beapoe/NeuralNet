@@ -1,13 +1,14 @@
-#include "include/tools.h"
+#include "tools.h"
 #include <cmath>
 #include <list>
+#include <iostream>
 using namespace std;
 
-auto getL(int index,list<> l){
+double getL(int index,list<double> l){
 	double counter = 0;
 	double value;
 	try{
-		if(index > l.size() || l == null)
+		if(index > l.size() || l.empty())
 			throw 0;
 		for(double i:l){
 			if(counter == index)
@@ -17,7 +18,7 @@ auto getL(int index,list<> l){
 		return value;
 	}catch(int* s){
 		cout<<"索引大于列表或列表为空";
-		exit();
+		exit(1);
 	}
 }
 double Linear(double sk,double sb,double input){
