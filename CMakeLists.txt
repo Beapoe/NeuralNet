@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.10)
 set(NAME NeuralNet)
 set(LSOURCE
- src/tools.h
- src/tools.cpp
- src/Neuron.h
- src/Neuron.cpp
+    src/tools.h
+    src/tools.cpp
+    src/Neuron.h
+    src/Neuron.cpp
 	src/Layer.h
 	src/Layer.cpp)
 project(${NAME} VERSION 1.0.0)
