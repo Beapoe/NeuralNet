@@ -1,3 +1,0 @@
-/home/Beapoe/C++/Project/NeuralNet/build/CMakeFiles/NeuralNet.dir
-/home/Beapoe/C++/Project/NeuralNet/build/CMakeFiles/edit_cache.dir
-/home/Beapoe/C++/Project/NeuralNet/build/CMakeFiles/rebuild_cache.dir
