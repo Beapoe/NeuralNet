@@ -6,7 +6,7 @@
 using namespace std;
 
 template <typename T>
-auto getL(int index,list<T> l) ->decltype(l.front){
+auto getL(int index,list<T> l) ->decltype(l.front()){
  int counter = 0;
 	double value;
 	 try{
