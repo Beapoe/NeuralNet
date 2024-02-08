@@ -15,7 +15,7 @@ class Neuron{
 		list<double> inputs,weights;
 		ActivateFunction AC;
 	public:
-		Neuron();
+		Neuron() = default;
 		Neuron(int numInputs);
 		void init(int numInputs);
 		void calc();
