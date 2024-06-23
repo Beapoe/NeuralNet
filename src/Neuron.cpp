@@ -45,10 +45,10 @@ void Neuron::calc(){
 		double total;
 		for(int i=0;i<=inputs.size();i++){
 			if(i == inputs.size()){
-				total += bias*getL(i,weights);
+				total += bias*getContent(weights,i);
 			}
 			else{
-				total += getL(i,inputs)*getL(i,weights);
+				total += getContent(inputs,i)*getContent(weights,i);
 			}
 		}
 		switch (AC){

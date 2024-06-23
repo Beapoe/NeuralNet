@@ -21,7 +21,7 @@ Layer::Layer(LType ntype,int NIL,ActivateFunction ac){
 
 void Layer::init(int numNInputs){
 	for(int i=0;i<Neurons.size();i++){
-		getL(i,Neurons).init(numNInputs);
+		getContent(Neurons,i).init(numNInputs);
 	}
 }
 
@@ -30,13 +30,13 @@ int Layer::getNumNeuronsInLayer(){
 }
 
 list<double> Layer::getInputs(){
- return getL(0,Neurons).getInputs();
+ return getContent(Neurons,0).getInputs();
 }
 
 list<list<double>> Layer::getLWeights(){
 	list<list<double>> weights;
 	for(int i=0;i<Neurons.size();i++){
-		weights.push_back(getL(i,Neurons).getWeights());
+		weights.push_back(getContent(Neurons,i).getWeights());
 	}
 	return weights;
 }
@@ -44,7 +44,7 @@ list<list<double>> Layer::getLWeights(){
 list<double> Layer::getBiases(){
 	list<double> biases;
 	for(int i=0;i<Neurons.size();i++){
-		biases.push_back(getL(i,Neurons).getBias());
+		biases.push_back(getContent(Neurons,i).getBias());
 	}
 	return biases;
 }
@@ -52,7 +52,7 @@ list<double> Layer::getBiases(){
 list<double> Layer::getLKs(){
 	list<double> ks;
 	for(int i=0;i<Neurons.size();i++){
-		ks.push_back(getL(i,Neurons).getK());
+		ks.push_back(getContent(Neurons,i).getK());
 	}
 	return ks;
 }
@@ -60,7 +60,7 @@ list<double> Layer::getLKs(){
 list<double> Layer::getLBs(){
 	list<double> bs;
 	for(int i=0;i<Neurons.size();i++){
-		bs.push_back(getL(i,Neurons).getB());
+		bs.push_back(getContent(Neurons,i).getB());
 	}
 	return bs;
 }
@@ -75,38 +75,38 @@ void Layer::setNumNeuronsInLayer(int nNIL){
 
 void Layer::setInputs(list<double> ninputs){
 	for(int i=0;i<Neurons.size();i++){
-		getL(i,Neurons).setInputs(ninputs);
+		getContent(Neurons,i).setInputs(ninputs);
 	}
 }
 
 void Layer::setLWeights(list<list<double>> nweights){
 	for(int i=0;i<Neurons.size();i++){
-		getL(i,Neurons).setWeights(getL(i,nweights));
+		getContent(Neurons,i).setWeights(getContent(nweights,i));
 	}
 }
 
 void Layer::setBiases(list<double> nbiases){
 	for(int i=0;i<nbiases.size();i++){
-		getL(i,Neurons).setBias(getL(i,nbiases));
+		getContent(Neurons,i).setBias(getContent(nbiases,i));
 	}
 }
 
 void Layer::setLKs(list<double> nlks){
 	for(int i=0;i<nlks.size();i++){
-		getL(i,Neurons).setK(getL(i,nlks));
+		getContent(Neurons,i).setK(getContent(nlks,i));
 	}
 }
 
 void Layer::setLBs(list<double> nlbs){
 	for(int i=0;i<nlbs.size();i++){
-		getL(i,Neurons).setB(getL(i,nlbs));
+		getContent(Neurons,i).setB(getContent(nlbs,i));
 	}
 }
 
 void Layer::setActivateFunction(ActivateFunction ac){
 	LActivateFunction = ac;
 	for(int i=0;i<numNeuronsInLayer;i++){
-		getL(i,Neurons).setActivateFunction(LActivateFunction);
+		getContent(Neurons,i).setActivateFunction(LActivateFunction);
 	}
 }
 

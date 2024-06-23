@@ -14,7 +14,7 @@ class Neuron{
 		int numInputs;
 		// 定义偏置，线性激活函数的斜率，截距，输出
 		double bias,k,b,output;
-		// 定义输入列表，输出列表
+		// 声明输入，权重列表
 		list<double> inputs,weights;
 		// 定义激活函数
 		ActivateFunction AC;
