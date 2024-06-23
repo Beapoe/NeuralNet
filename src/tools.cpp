@@ -4,8 +4,6 @@
 #include <cmath>
 using namespace std;
 
-template <typename T>
-
 double Linear(double sk,double sb,double input){
 	return input*sk+sb;
 }

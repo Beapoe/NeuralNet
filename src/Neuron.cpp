@@ -6,6 +6,7 @@
 #include <limits>
 using namespace std;
 
+Neuron::Neuron(){}
 Neuron::Neuron(int numInputs){
 	default_random_engine e(time(0));
 	double weight,nbias;
