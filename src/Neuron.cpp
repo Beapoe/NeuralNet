@@ -115,3 +115,7 @@ void Neuron::setWeights(list<double> nweights){
 void Neuron::setActivateFunction(ActivateFunction nac){
 	AC = nac;
 }
+
+void Neuron::setNumInputs(int nnuminputs){
+	numInputs =nnuminputs;
+}

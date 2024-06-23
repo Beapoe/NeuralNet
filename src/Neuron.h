@@ -10,29 +10,52 @@ using namespace std;
 
 class Neuron{
 	private:
+	    // 定义输入的个数
 		int numInputs;
+		// 定义偏置，线性激活函数的斜率，截距，输出
 		double bias,k,b,output;
+		// 定义输入列表，输出列表
 		list<double> inputs,weights;
+		// 定义激活函数
 		ActivateFunction AC;
-	public:
+		public:
+		// 构建空白神经元
 		Neuron();
+		// 构建带有随机偏置和权重的神经元
 		Neuron(int numInputs);
+		// 初始化空白神经元
 		void init(int numInputs);
+		// 计算输出
 		void calc();
+		// 获取偏置
 		double getBias();
+		// 获取线性激活函数的斜率
 		double getK();
+		// 获取线性激活函数的截距
 		double getB();
+		// 获取输出
 		double getOutput();
+		// 获取输入
 		list<double> getInputs();
+		// 获取权重
 		list<double> getWeights();
+		// 获取激活函数
 		ActivateFunction getActivateFunction();
+		// 设置输入个数
 		int getNumInputs();
+		// 设置偏置
 		void setBias(double nbias);
+		// 设置线性激活函数的斜率
 		void setK(double nk);
+		// 设置线性激活函数的截距
 		void setB(double nb);
+		// 设置输入
 		void setInputs(list<double> ninputs);
+		// 设置权重
 		void setWeights(list<double> nweights);
+		// 设置激活函数
 		void setActivateFunction(ActivateFunction nac);
+		// 设置输入个数
 		void setNumInputs(int nnuminputs);
 };
 
