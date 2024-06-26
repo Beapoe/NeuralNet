@@ -3,8 +3,11 @@
 #include "Layer.h"
 #include <list>
 
-Layer::Layer(LType ntype,int NIL,ActivateFunction ac){
-	type = ntype;
+Layer::Layer(){}
+
+Layer::Layer(LType ntype, int NIL, ActivateFunction ac)
+{
+    type = ntype;
 	numNeuronsInLayer = NIL;
 	LActivateFunction = ac;
 	for(int i=0;i<numNeuronsInLayer;i++){
