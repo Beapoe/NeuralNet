@@ -1,7 +1,6 @@
 #ifndef _LAYER_H
 #define _LAYER_H
 
-#include <list>
 #include "tools.h"
 #include "Neuron.h"
 
@@ -12,7 +11,7 @@ class Layer{
 		// 定义本层类型
 		LType type;
 		// 定义神经元列表
-		list<Neuron> Neurons;
+		vector<Neuron> Neurons;
 		// 定义本层神经元初始激活函数
 		ActivateFunction LActivateFunction;
 	public:
@@ -25,28 +24,33 @@ class Layer{
 		// 获取层中神经元数目
 		int getNumNeuronsInLayer();
 		// 获取各个神经元输出
-		list<double> getInputs();
+		vector<double> getInputs();
 		// 获取各个神经元权重
-		list<list<double>> getLWeights();
+		vector<vector<double>> getLWeights();
 		// 获取各个神经元偏置
-		list<double> getBiases();
+		vector<double> getBiases();
 		// 获取层中线性激活函数的斜率
-		list<double> getLKs();
+		vector<double> getLKs();
 		// 获取层中线性激活函数的截距
-		list<double> getLBs();
+		vector<double> getLBs();
 		// 获取各个神经元输出
-		list<double> getLOutputs();
+		vector<double> getLOutputs();
 		// 获取层初始激活函数
 		ActivateFunction getActivateFunction();
-		void setInputs(list<double> ninputs);
+		// 设置隐含或输出层中神经元输入
+		void setInputs(vector<double> ninputs);
+		// 设置输入层的输入
+		void setInput(vector<double> ninput);
+		// 设置隐含层或输出层的输入个数
+		void setNumInputs(int numInputs);
 		// 设置各个神经元权重
-		void setLWeights(list<list<double>>);
+		void setLWeights(vector<vector<double>>);
 		// 设置各个神经元的偏置
-		void setBiases(list<double> nbiases);
+		void setBiases(vector<double> nbiases);
 		// 设置层中线性激活函数的截距
-		void setLKs(list<double> nlks);
+		void setLKs(vector<double> nlks);
 		// 设置层中线性激活函数的斜率
-		void setLBs(list<double> nlbs);
+		void setLBs(vector<double> nlbs);
 		// 设置层的初始激活函数
 		void setActivateFunction(ActivateFunction nlac);
 		// 设置层中神经元数目

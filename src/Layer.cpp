@@ -1,8 +1,4 @@
-#include "tools.h"
-#include "Neuron.h"
 #include "Layer.h"
-#include <list>
-
 Layer::Layer(){}
 
 Layer::Layer(LType ntype, int NIL, ActivateFunction ac)
@@ -24,7 +20,7 @@ Layer::Layer(LType ntype, int NIL, ActivateFunction ac)
 
 void Layer::init(int numNInputs){
 	for(int i=0;i<Neurons.size();i++){
-		getContent(Neurons,i).init(numNInputs);
+		Neurons[i].init(numNInputs);
 	}
 }
 
@@ -32,40 +28,49 @@ int Layer::getNumNeuronsInLayer(){
 	return numNeuronsInLayer;
 }
 
-list<double> Layer::getInputs(){
- return getContent(Neurons,0).getInputs();
+vector<double> Layer::getInputs(){
+ return Neurons[0].getInputs();
 }
 
-list<list<double>> Layer::getLWeights(){
-	list<list<double>> weights;
+vector<vector<double>> Layer::getLWeights(){
+	vector<vector<double>> weights;
 	for(int i=0;i<Neurons.size();i++){
-		weights.push_back(getContent(Neurons,i).getWeights());
+		weights.push_back(Neurons[i].getWeights());
 	}
 	return weights;
 }
 
-list<double> Layer::getBiases(){
-	list<double> biases;
+vector<double> Layer::getBiases(){
+	vector<double> biases;
 	for(int i=0;i<Neurons.size();i++){
-		biases.push_back(getContent(Neurons,i).getBias());
+		biases.push_back(Neurons[i].getBias());
 	}
 	return biases;
 }
 
-list<double> Layer::getLKs(){
-	list<double> ks;
+vector<double> Layer::getLKs(){
+	vector<double> ks;
 	for(int i=0;i<Neurons.size();i++){
-		ks.push_back(getContent(Neurons,i).getK());
+		ks.push_back(Neurons[i].getK());
 	}
 	return ks;
 }
 
-list<double> Layer::getLBs(){
-	list<double> bs;
+vector<double> Layer::getLBs(){
+	vector<double> bs;
 	for(int i=0;i<Neurons.size();i++){
-		bs.push_back(getContent(Neurons,i).getB());
+		bs.push_back(Neurons[i].getB());
 	}
 	return bs;
+}
+
+vector<double> Layer::getLOutputs(){
+	vector<double> outputs;
+	for(auto i:Neurons){
+		i.calc();
+		outputs.push_back(i.getOutput());
+	}
+    return outputs;
 }
 
 ActivateFunction Layer::getActivateFunction(){
@@ -76,40 +81,51 @@ void Layer::setNumNeuronsInLayer(int nNIL){
 	numNeuronsInLayer = nNIL;
 }
 
-void Layer::setInputs(list<double> ninputs){
+void Layer::setInputs(vector<double> ninputs){
 	for(int i=0;i<Neurons.size();i++){
-		getContent(Neurons,i).setInputs(ninputs);
+		Neurons[i].setInputs(ninputs);
 	}
 }
 
-void Layer::setLWeights(list<list<double>> nweights){
+void Layer::setInput(vector<double> ninput){
 	for(int i=0;i<Neurons.size();i++){
-		getContent(Neurons,i).setWeights(getContent(nweights,i));
+		Neurons[i].setInput(ninput[i]);
 	}
 }
 
-void Layer::setBiases(list<double> nbiases){
+void Layer::setNumInputs(int numInputs){
+	for(auto i:Neurons){
+		i.setNumInputs(numInputs);
+	}
+}
+
+void Layer::setLWeights(vector<vector<double>> nweights){
+	for(int i=0;i<Neurons.size();i++){
+		Neurons[i].setWeights(nweights[i]);
+	}
+}
+
+void Layer::setBiases(vector<double> nbiases){
 	for(int i=0;i<nbiases.size();i++){
-		getContent(Neurons,i).setBias(getContent(nbiases,i));
+		Neurons[i].setBias(nbiases[i]);
 	}
 }
 
-void Layer::setLKs(list<double> nlks){
+void Layer::setLKs(vector<double> nlks){
 	for(int i=0;i<nlks.size();i++){
-		getContent(Neurons,i).setK(getContent(nlks,i));
+		Neurons[i].setK(nlks[i]);
 	}
 }
 
-void Layer::setLBs(list<double> nlbs){
+void Layer::setLBs(vector<double> nlbs){
 	for(int i=0;i<nlbs.size();i++){
-		getContent(Neurons,i).setB(getContent(nlbs,i));
+		Neurons[i].setB(nlbs[i]);
 	}
 }
 
 void Layer::setActivateFunction(ActivateFunction ac){
 	LActivateFunction = ac;
 	for(int i=0;i<numNeuronsInLayer;i++){
-		getContent(Neurons,i).setActivateFunction(LActivateFunction);
+		Neurons[i].setActivateFunction(LActivateFunction);
 	}
 }
-

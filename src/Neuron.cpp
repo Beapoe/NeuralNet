@@ -1,9 +1,4 @@
-#include "tools.h"
 #include "Neuron.h"
-#include <list>
-#include <ctime>
-#include <random>
-#include <limits>
 using namespace std;
 
 Neuron::Neuron(){}
@@ -44,17 +39,20 @@ void Neuron::init(int numInputs){
 void Neuron::calc(){
 	if(inputs.size() != 0){
 		double total;
-		for(int i=0;i<=inputs.size();i++){
+		for(int i=0;i<inputs.size();i++){
 			if(i == inputs.size()){
-				total += bias*getContent(weights,i);
+				total += bias*weights[i];
 			}
 			else{
-				total += getContent(inputs,i)*getContent(weights,i);
+				total += inputs[i]*weights[i];
 			}
 		}
-		switch (AC){
-			case linear:output = Linear(k,b,total);
-						break;
+		Args arg{i,total};
+		args.arguemnts.push_back(arg);
+		switch (args.type){
+			case linear:{Linear AcFunc = Linear();
+						output = AcFunc.execute(args);
+						break;}
 			case sigmoid:output = Sigmoid(total);
 						 break;
 			case hyperTan:output = HyperTan(total);
@@ -81,16 +79,16 @@ double Neuron::getOutput(){
 	return output;
 }
 
-list<double> Neuron::getInputs(){
+vector<double> Neuron::getInputs(){
 	return inputs;
 }
 
-list<double> Neuron::getWeights(){
+vector<double> Neuron::getWeights(){
 	return weights;
 }
 
 ActivateFunction Neuron::getActivateFunction(){
-	return AC;
+	return args.type;
 }
 
 void Neuron::setBias(double nbias){
@@ -98,23 +96,29 @@ void Neuron::setBias(double nbias){
 }
 
 void Neuron::setK(double nk){
-	k = nk;
+	Args arg{k,nk};
+	args.arguemnts.push_back(arg);
 }
 
 void Neuron::setB(double nb){
-	b = nb;
+	Args arg{b,nb};
+	args.arguemnts.push_back(arg);
 }
 
-void Neuron::setInputs(list<double> ninputs){
+void Neuron::setInputs(vector<double> ninputs){
     inputs = ninputs;
 }
 
-void Neuron::setWeights(list<double> nweights){
+void Neuron::setInput(double ninput){
+	inputs.push_back(ninput);
+}
+
+void Neuron::setWeights(vector<double> nweights){
 	weights = nweights;
 }
 
 void Neuron::setActivateFunction(ActivateFunction nac){
-	AC = nac;
+	args.type = nac;
 }
 
 void Neuron::setNumInputs(int nnuminputs){
