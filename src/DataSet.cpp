@@ -18,7 +18,7 @@ void DataSet::preparePath()
     bool condition = pos==string::npos;
     string public_path;
     if(condition == false){
-        public_path = current_path.erase(pos,toRemove.length())+"mnist/";
+        public_path = current_path.erase(pos,toRemove.length())+"mnist\\";
     }
     TestImagePath = public_path+"emnist-mnist-test-images-idx3-ubyte";
     TestLabelPath = public_path+"emnist-mnist-test-labels-idx1-ubyte";

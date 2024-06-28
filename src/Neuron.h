@@ -1,24 +1,30 @@
 #ifndef NEURON_H
 #define NEURON_H
 
+#include <iostream>
 #include <cstdlib>
 #include <random>
-#include <ctime>
+#include <thread>
+#include <chrono>
 #include "tools.h"
-#include "Linear.h"
-#include "ActivationFunction.h"
 using namespace std;
 
 class Neuron{
 	private:
 	    // 定义输入的个数
 		int numInputs = 1;
-		// 定义偏置，线性激活函数的偏置，输出
-		double bias,output;
+		// 定义偏置，线性激活函数的斜率，截距，输出
+		double bias = 0 ;
+		// 线性激活函数的斜率
+		double k = 0;
+		// 线性激活函数的截距
+		double b = 0;
+		// 输出
+		double output = 0;
 		// 声明输入，权重列表
 		vector<double> inputs,weights;
-		// 激活函数相关参数
-		Arguements args;
+		// 定义激活函数
+		ActivateFunction AC = linear;
 	public:
 		// 构建空白神经元
 		Neuron();
@@ -50,9 +56,9 @@ class Neuron{
 		void setK(double nk);
 		// 设置线性激活函数的截距
 		void setB(double nb);
-		// 设置隐含或输出输入
+		// 设置隐含层或输出层输入
 		void setInputs(vector<double> ninputs);
-		// 设置输入层输入
+		// 设置输入层的输入
 		void setInput(double ninput);
 		// 设置权重
 		void setWeights(vector<double> nweights);

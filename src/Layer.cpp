@@ -1,11 +1,15 @@
+#include "tools.h"
+#include "Neuron.h"
 #include "Layer.h"
+#include <list>
+
 Layer::Layer(){}
 
 Layer::Layer(LType ntype, int NIL, ActivateFunction ac)
 {
     type = ntype;
 	numNeuronsInLayer = NIL;
-	LActivateFunction = ac;
+	Layer:;setActivateFunction(ac);
 	for(int i=0;i<numNeuronsInLayer;i++){
 		switch (type){
 			case input:Neurons.push_back(Neuron(1));
@@ -64,13 +68,14 @@ vector<double> Layer::getLBs(){
 	return bs;
 }
 
-vector<double> Layer::getLOutputs(){
-	vector<double> outputs;
+vector<double> Layer::getLOutputs()
+{
+	vector<double> result;
 	for(auto i:Neurons){
 		i.calc();
-		outputs.push_back(i.getOutput());
+		result.push_back(i.getOutput());
 	}
-    return outputs;
+    return result;
 }
 
 ActivateFunction Layer::getActivateFunction(){
@@ -88,14 +93,10 @@ void Layer::setInputs(vector<double> ninputs){
 }
 
 void Layer::setInput(vector<double> ninput){
-	for(int i=0;i<Neurons.size();i++){
-		Neurons[i].setInput(ninput[i]);
-	}
-}
-
-void Layer::setNumInputs(int numInputs){
-	for(auto i:Neurons){
-		i.setNumInputs(numInputs);
+	int counter = 0;
+	for(auto i:ninput){
+		Neurons[counter].setInput(i);
+		counter++;
 	}
 }
 
@@ -129,3 +130,4 @@ void Layer::setActivateFunction(ActivateFunction ac){
 		Neurons[i].setActivateFunction(LActivateFunction);
 	}
 }
+

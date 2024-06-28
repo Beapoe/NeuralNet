@@ -1,6 +1,7 @@
 #ifndef _LAYER_H
 #define _LAYER_H
 
+#include <list>
 #include "tools.h"
 #include "Neuron.h"
 
@@ -37,12 +38,10 @@ class Layer{
 		vector<double> getLOutputs();
 		// 获取层初始激活函数
 		ActivateFunction getActivateFunction();
-		// 设置隐含或输出层中神经元输入
+		// 设置隐含层和输出层输入
 		void setInputs(vector<double> ninputs);
-		// 设置输入层的输入
+		// 设置输入层输入
 		void setInput(vector<double> ninput);
-		// 设置隐含层或输出层的输入个数
-		void setNumInputs(int numInputs);
 		// 设置各个神经元权重
 		void setLWeights(vector<vector<double>>);
 		// 设置各个神经元的偏置

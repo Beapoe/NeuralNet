@@ -3,35 +3,35 @@ using namespace std;
 
 Neuron::Neuron(){}
 Neuron::Neuron(int numInputs){
-	default_random_engine e(time(0));
+	random_device rd;
 	double weight,nbias;
-	double DMax = numeric_limits<double>::max();
-	double DMin = numeric_limits<double>::min();
-	uniform_real_distribution<double> u(DMin,DMax);
-	for(int i=0;i<numInputs+1;i++){
+	uniform_real_distribution<double> u(-1,1);
+	mt19937 gen(rd());
+	bool countinue = true;
+	for(int i=0;i<numInputs+1 && countinue;i++){
 		if(i == numInputs){
-			nbias = u(e);
+			nbias = u(gen);
 			bias = nbias;
-			break;
+			countinue = false;
 		}
-		weight = u(e);
+		weight = u(gen);
 		weights.push_back(weight);
 	}
 }
 
 void Neuron::init(int numInputs){
-	default_random_engine e(time(0));
+	random_device rd;
 	double weight,nbias;
-	double DMax = numeric_limits<double>::max();
-	double DMin = numeric_limits<double>::min();
-	uniform_real_distribution<double> u(DMin,DMax);
-	for(int i=0;i<numInputs+1;i++){
+	uniform_real_distribution<double> u(-1,1);
+	mt19937 gen(rd());
+	bool countinue = true;
+	for(int i=0;i<numInputs+1 && countinue;i++){
 		if(i == numInputs){
-			nbias = u(e);
+			nbias = u(gen);
 			bias = nbias;
-			break;
+			countinue = false;
 		}
-		weight = u(e);
+		weight = u(gen);
 		weights.push_back(weight);
 	}
 }
@@ -39,7 +39,7 @@ void Neuron::init(int numInputs){
 void Neuron::calc(){
 	if(inputs.size() != 0){
 		double total;
-		for(int i=0;i<inputs.size();i++){
+		for(int i=0;i<inputs.size()+1;i++){
 			if(i == inputs.size()){
 				total += bias*weights[i];
 			}
@@ -47,12 +47,9 @@ void Neuron::calc(){
 				total += inputs[i]*weights[i];
 			}
 		}
-		Args arg{i,total};
-		args.arguemnts.push_back(arg);
-		switch (args.type){
-			case linear:{Linear AcFunc = Linear();
-						output = AcFunc.execute(args);
-						break;}
+		switch (AC){
+			case linear:output = Linear(k,b,total);
+						break;
 			case sigmoid:output = Sigmoid(total);
 						 break;
 			case hyperTan:output = HyperTan(total);
@@ -88,7 +85,7 @@ vector<double> Neuron::getWeights(){
 }
 
 ActivateFunction Neuron::getActivateFunction(){
-	return args.type;
+	return AC;
 }
 
 void Neuron::setBias(double nbias){
@@ -96,13 +93,11 @@ void Neuron::setBias(double nbias){
 }
 
 void Neuron::setK(double nk){
-	Args arg{k,nk};
-	args.arguemnts.push_back(arg);
+	k = nk;
 }
 
 void Neuron::setB(double nb){
-	Args arg{b,nb};
-	args.arguemnts.push_back(arg);
+	b = nb;
 }
 
 void Neuron::setInputs(vector<double> ninputs){
@@ -118,7 +113,7 @@ void Neuron::setWeights(vector<double> nweights){
 }
 
 void Neuron::setActivateFunction(ActivateFunction nac){
-	args.type = nac;
+	AC = nac;
 }
 
 void Neuron::setNumInputs(int nnuminputs){

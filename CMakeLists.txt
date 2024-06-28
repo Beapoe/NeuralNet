@@ -8,10 +8,7 @@ set(LSOURCE
 	src/Layer.h
 	src/Layer.cpp
     src/DataSet.h
-    src/DataSet.cpp
-    src/ActivationFunction.h
-    src/Linear.h
-    src/Linear.cpp)
+    src/DataSet.cpp)
 project(${NAME} VERSION 1.0.0)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

@@ -5,7 +5,7 @@
 using namespace std;
 
 int main(){
-    Layer layer =  Layer(input,784,linear);
+    Layer layer =  Layer(input,7,linear);
     int number = layer.getNumNeuronsInLayer();
     cout<<number<<endl;
     DataSet set = DataSet();
@@ -15,26 +15,38 @@ int main(){
     cout<<data1.size()<<endl;
     cout<<data2.size()<<endl;
     cout<<data1[2].size()<<endl;
-    vector<double> TestData = data1[1];
-    layer.setInput(TestData);
-    vector<double> ks,bs;
-    for(int i=0;i,784;i++){
-        ks.push_back(9);
-        bs.push_back(1);
+    vector<double> inputs;
+    for (int i=0;i<7;i++)
+    {
+        inputs.push_back(45);
     }
+    vector<double> bs,ks;
+    for(int i=0;i<7;i++){
+        bs.push_back(4.153629);
+        ks.push_back(4.213594);
+    }
+    layer.setInput(inputs);
     layer.setLKs(ks);
     layer.setLBs(bs);
     vector<double> result = layer.getLOutputs();
-    vector<double> biases = layer.getBiases();
-    int counter = 1;
+    vector<double> baises = layer.getBiases();
+    vector<vector<double>> weights = layer.getLWeights();
     for(auto i:result){
-        cout<<i<<" ";
-        if(counter == 28){
-            cout<<endl;
-            counter = 0;
+        cout<<i<<endl;
+    }
+    cout<<endl;
+    for(auto i:baises){
+        cout<<i<<endl;
+    }
+    cout<<endl;
+    int counter = 0;
+    for(auto i:weights){
+        for(auto j:weights[counter]){
+            cout<<j<<" ";
         }
         counter++;
+        cout<<endl;
     }
-    cout<<biases.size()<<endl;
+    cout<<endl;
     return 0;
 }
