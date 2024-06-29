@@ -9,7 +9,6 @@ Layer::Layer(LType ntype, int NIL, ActivateFunction ac)
 {
     type = ntype;
 	numNeuronsInLayer = NIL;
-	Layer:;setActivateFunction(ac);
 	for(int i=0;i<numNeuronsInLayer;i++){
 		switch (type){
 			case input:Neurons.push_back(Neuron(1));
@@ -20,6 +19,7 @@ Layer::Layer(LType ntype, int NIL, ActivateFunction ac)
 						break;
 		}
 	}
+	Layer::setActivateFunction(ac);
 }
 
 void Layer::init(int numNInputs){

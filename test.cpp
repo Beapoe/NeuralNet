@@ -14,7 +14,7 @@ int main(){
     vector<double> data2 = set.getTestLabels();
     cout<<data1.size()<<endl;
     cout<<data2.size()<<endl;
-    cout<<data1[2].size()<<endl;
+    cout<<data1[2].size()<<endl<<endl;
     vector<double> inputs;
     for (int i=0;i<7;i++)
     {
