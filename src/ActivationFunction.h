@@ -2,16 +2,33 @@
 #define ACFUNC_H_
 
 #include <cmath>
-#include <map>
-#include <functional>
+#include <vector>
+#include <algorithm>
+#include <numeric>
 using namespace std;
 
-double Linear(double sk,double sb,double input);
 double HyperTan(double input);
-double Sigmoid(double input);
 double HardThreshold(double input);
+double Relu(double input);
+vector<double> Softmax(vector<double> RawOutput);
+double Leaky_Relu(double input);
 
-enum LType {input,hidden,output};
-enum ActivateFunction {linear,sigmoid,hyperTan,hardThreshold};
+
+
+enum LType
+{
+    input,
+    hidden,
+    output
+};
+enum ActivateFunction
+{
+    null,
+    hyperTan,
+    hardThreshold,
+    relu,
+    softmax,
+    leaky_relu
+};
 
 #endif
