@@ -2,13 +2,8 @@
 #include "Layer.h"
 #include <list>
 
-Layer::Layer() {}
-
-Layer::~Layer()
-{
-	vector<Neuron>().swap(Neurons);
-	vector<double>().swap(Output);
-}
+Layer::Layer()
+{}
 
 Layer::Layer(const LType &ntype, const int NIL, const ActivateFunction &ac)
 {
@@ -45,14 +40,14 @@ int Layer::getNumNeuronsInLayer()
 	return numNeuronsInLayer;
 }
 
-vector<double> Layer::getInputs()
+vector<double,gc_allocator<double>> Layer::getInputs()
 {
 	return Neurons[0].getInputs();
 }
 
-vector<vector<double>> Layer::getLWeights()
+vector<vector<double,gc_allocator<double>>,gc_allocator<vector<double,gc_allocator<double>>>> Layer::getLWeights()
 {
-	vector<vector<double>> weights;
+	vector<vector<double,gc_allocator<double>>,gc_allocator<vector<double,gc_allocator<double>>>> weights;
 	for (int i = 0; i < Neurons.size(); i++)
 	{
 		weights.push_back(Neurons[i].getWeights());
@@ -60,9 +55,9 @@ vector<vector<double>> Layer::getLWeights()
 	return weights;
 }
 
-vector<double> Layer::getBiases()
+vector<double,gc_allocator<double>> Layer::getBiases()
 {
-	vector<double> biases;
+	vector<double,gc_allocator<double>> biases;
 	for (int i = 0; i < Neurons.size(); i++)
 	{
 		biases.push_back(Neurons[i].getBias());
@@ -70,9 +65,9 @@ vector<double> Layer::getBiases()
 	return biases;
 }
 
-vector<double> Layer::getLOutputs()
+vector<double,gc_allocator<double>> Layer::getLOutputs()
 {
-	vector<double> result;
+	vector<double,gc_allocator<double>> result;
 	for (auto i : Neurons)
 	{
 		i.calc();
@@ -97,7 +92,7 @@ void Layer::setNumNeuronsInLayer(const int nNIL)
 	numNeuronsInLayer = nNIL;
 }
 
-void Layer::setInputs(const vector<double> &ninputs)
+void Layer::setInputs(const vector<double,gc_allocator<double>> &ninputs)
 {
 	for (int i = 0; i < Neurons.size(); i++)
 	{
@@ -105,7 +100,7 @@ void Layer::setInputs(const vector<double> &ninputs)
 	}
 }
 
-void Layer::setInput(const vector<double> &ninput)
+void Layer::setInput(const vector<double,gc_allocator<double>> &ninput)
 {
 	for (int i = 0; i < Neurons.size(); i++)
 	{
@@ -121,7 +116,7 @@ void Layer::setNumInputs(const int nNI)
 	}
 }
 
-void Layer::setLWeights(const vector<vector<double>> &nweights)
+void Layer::setLWeights(const vector<vector<double,gc_allocator<double>>,gc_allocator<vector<double,gc_allocator<double>>>> &nweights)
 {
 	for (int i = 0; i < Neurons.size(); i++)
 	{
@@ -129,7 +124,7 @@ void Layer::setLWeights(const vector<vector<double>> &nweights)
 	}
 }
 
-void Layer::setBiases(const vector<double> &nbiases)
+void Layer::setBiases(const vector<double,gc_allocator<double>> &nbiases)
 {
 	for (int i = 0; i < nbiases.size(); i++)
 	{

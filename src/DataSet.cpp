@@ -70,7 +70,7 @@ void DataSet::readImages()
     TestImageColsnum = DataSet::DataSet::ReverseInt(TestImageColsnum);
     for (int i = 0; i < TrainImagesnum; i++)
     {
-        vector<double> temp;
+        vector<double,gc_allocator<double>> temp;
         for (int r = 0; r < TrainImageRowsnum; r++)
         {
             for (int c = 0; c < TrainImageColsnum; c++)
@@ -84,7 +84,7 @@ void DataSet::readImages()
     }
     for (int i = 0; i < TestImagesnum; i++)
     {
-        vector<double> temp;
+        vector<double,gc_allocator<double>> temp;
         for (int r = 0; r < TestImageRowsnum; r++)
         {
             for (int c = 0; c < TestImageColsnum; c++)
@@ -122,14 +122,6 @@ void DataSet::readLabels()
     }
 }
 
-DataSet::DataSet() {}
-DataSet::~DataSet()
-{
-    vector<vector<double>>().swap(TrainImages);
-    vector<vector<double>>().swap(TestImages);
-    vector<double>().swap(Trainlabels);
-    vector<double>().swap(TestLabels);
-}
 void DataSet::LoadEMnist()
 {
     DataSet::preparePath();
@@ -142,22 +134,22 @@ void DataSet::LoadEMnist()
     TestLabelFile.close();
 }
 
-vector<vector<double>> DataSet::getTrainImages()
+vector<vector<double,gc_allocator<double>>,gc_allocator<vector<double,gc_allocator<double>>>> DataSet::getTrainImages()
 {
     return TrainImages;
 }
 
-vector<vector<double>> DataSet::getTestImages()
+vector<vector<double,gc_allocator<double>>,gc_allocator<vector<double,gc_allocator<double>>>> DataSet::getTestImages()
 {
     return TestImages;
 }
 
-vector<double> DataSet::getTarinLabels()
+vector<int,gc_allocator<int>> DataSet::getTarinLabels()
 {
     return Trainlabels;
 }
 
-vector<double> DataSet::getTestLabels()
+vector<int,gc_allocator<int>> DataSet::getTestLabels()
 {
     return TestLabels;
 }

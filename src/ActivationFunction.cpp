@@ -32,8 +32,8 @@ double Relu(const double input)
 	}
 }
 
-vector<double> Softmax(const vector<double>& raw){
-    vector<double> pro(raw.size());
+vector<double,gc_allocator<double>> Softmax(const vector<double,gc_allocator<double>>& raw){
+    vector<double,gc_allocator<double>> pro(raw.size());
     double denominator;
     double e = exp(1);
     for(int i=0;i<raw.size();i++){

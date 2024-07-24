@@ -2,11 +2,6 @@
 using namespace std;
 
 Neuron::Neuron() {}
-Neuron::~Neuron()
-{
-	vector<double>().swap(weights);
-	vector<double>().swap(inputs);
-}
 Neuron::Neuron(const int numInputs)
 {
 	random_device rd;
@@ -92,12 +87,12 @@ double Neuron::getOutput()
 	return output;
 }
 
-vector<double> Neuron::getInputs()
+vector<double,gc_allocator<double>> Neuron::getInputs()
 {
 	return inputs;
 }
 
-vector<double> Neuron::getWeights()
+vector<double,gc_allocator<double>> Neuron::getWeights()
 {
 	return weights;
 }
@@ -117,7 +112,7 @@ void Neuron::setBias(const double nbias)
 	bias = nbias;
 }
 
-void Neuron::setInputs(const vector<double> &ninputs)
+void Neuron::setInputs(const vector<double,gc_allocator<double>> &ninputs)
 {
 	inputs = ninputs;
 }
@@ -128,7 +123,7 @@ void Neuron::setInput(const double ninput)
 	inputs.push_back(ninput);
 }
 
-void Neuron::setWeights(const vector<double> &nweights)
+void Neuron::setWeights(const vector<double,gc_allocator<double>> &nweights)
 {
 	weights = nweights;
 }

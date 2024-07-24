@@ -1,19 +1,12 @@
 #include "NeuralNet.h"
 
-NeuralNet::~NeuralNet()
-{
-    vector<vector<double>>().swap(TrainImageData);
-    vector<vector<double>>().swap(TestImageData);
-    vector<double>().swap(TrainLabelData);
-    vector<double>().swap(TestLabelData);
-    vector<Layer>().swap(hiddenLayers);
-    vector<ActivateFunction>().swap(ahac);
-    vector<double>().swap(inputs);
-    vector<double>().swap(targets);
-    vector<double>().swap(outputs);
-}
-
-NeuralNet::NeuralNet(const int Nnum_hidden_layers, const int Nnum_output_layer, const int num_inputNeurons, const vector<int> &num_hiddenNeurons, const int num_outputNeurons, const vector<ActivateFunction> &ahac, const ActivateFunction &oac)
+NeuralNet::NeuralNet(const int Nnum_hidden_layers,
+                     const int Nnum_output_layer,
+                     const int num_inputNeurons,
+                     const vector<int,gc_allocator<int>> &num_hiddenNeurons,
+                     const int num_outputNeurons,
+                     const vector<ActivateFunction,gc_allocator<ActivateFunction>> &ahac,
+                     const ActivateFunction &oac)
 {
     GC_init();
     num_hidden_layers = Nnum_hidden_layers;
@@ -90,7 +83,7 @@ double NeuralNet::Test()
     return CorrectTimes / TestLabelData.size();
 }
 
-void NeuralNet::predict(const vector<double> &inputs)
+void NeuralNet::predict(const vector<double,gc_allocator<double>> &inputs)
 {
     inputLayer.setInput(inputs);
     if (num_hidden_layers != 0)
@@ -132,7 +125,7 @@ ActivateFunction NeuralNet::getInputLayerAcFunc()
     return iac;
 }
 
-vector<ActivateFunction> NeuralNet::getAllHiddenLayerAcFunc()
+vector<ActivateFunction,gc_allocator<ActivateFunction>> NeuralNet::getAllHiddenLayerAcFunc()
 {
     return ahac;
 }
@@ -147,37 +140,37 @@ ActivateFunction NeuralNet::getOutputLayerAcFunc()
     return oac;
 }
 
-vector<double> NeuralNet::getInputs()
+vector<double,gc_allocator<double>> NeuralNet::getInputs()
 {
     return inputs;
 }
 
-vector<double> NeuralNet::getOuputs()
+vector<double,gc_allocator<double>> NeuralNet::getOuputs()
 {
     return outputs;
 }
 
-vector<double> NeuralNet::getTargets()
+vector<int,gc_allocator<int>> NeuralNet::getTargets()
 {
     return targets;
 }
 
-vector<vector<double>> NeuralNet::getTrainImaageData()
+vector<vector<double,gc_allocator<double>>,gc_allocator<vector<double,gc_allocator<double>>>> NeuralNet::getTrainImageData()
 {
     return TrainImageData;
 }
 
-vector<vector<double>> NeuralNet::getTestImageData()
+vector<vector<double,gc_allocator<double>>,gc_allocator<vector<double,gc_allocator<double>>>> NeuralNet::getTestImageData()
 {
     return TestImageData;
 }
 
-vector<double> NeuralNet::getTrainLabelData()
+vector<int,gc_allocator<int>> NeuralNet::getTrainLabelData()
 {
     return TrainLabelData;
 }
 
-vector<double> NeuralNet::getTestLabelData()
+vector<int,gc_allocator<int>> NeuralNet::getTestLabelData()
 {
     return TestLabelData;
 }
@@ -212,7 +205,7 @@ void NeuralNet::setInputLayerAcFunc(const ActivateFunction &niac)
     inputLayer.setActivateFunction(niac);
 }
 
-void NeuralNet::setAllHiddenLayerAcFunc(const vector<ActivateFunction> &nahac)
+void NeuralNet::setAllHiddenLayerAcFunc(const vector<ActivateFunction,gc_allocator<ActivateFunction>> &nahac)
 {
     int counter = 0;
     for (auto i : hiddenLayers)
@@ -232,13 +225,13 @@ void NeuralNet::setOutputLayerAcFunc(const ActivateFunction &noac)
     outputLayer.setActivateFunction(noac);
 }
 
-void NeuralNet::setInputs(const vector<double> &ninputs)
+void NeuralNet::setInputs(const vector<double,gc_allocator<double>> &ninputs)
 {
     inputs = ninputs;
     inputLayer.setInput(ninputs);
 }
 
-void NeuralNet::setTargets(const vector<double> &ntargets)
+void NeuralNet::setTargets(const vector<int,gc_allocator<int>> &ntargets)
 {
     targets = ntargets;
 }
@@ -266,7 +259,7 @@ void NeuralNet::setPrintCurrentBatchAndEpoch(const bool adjustment)
     PrintCurrentBatchAndEpoch = adjustment;
 }
 
-double NeuralNet::CCE(const vector<double> output,int target){
+double NeuralNet::CCE(const vector<double,gc_allocator<double>> output,int target){
     vector<double> oh(output.size());
     for(int i=0;i<output.size();i++){
         if(i == target){
@@ -360,14 +353,4 @@ void NeuralNet::backwardPropagation(const int current_batch)
             }
         }
     }
-}
-
-vector<FDouble> NeuralNet::convert(const vector<double> &inputs)
-{
-    vector<FDouble> OPs;
-    for (auto i : inputs)
-    {
-        OPs.push_back(FDouble(i));
-    }
-    return OPs;
 }

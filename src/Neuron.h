@@ -7,6 +7,7 @@
 #include <thread>
 #include <chrono>
 #include "ActivationFunction.h"
+#include "bdwgc/include/gc/gc_allocator.h"
 using namespace std;
 
 class Neuron
@@ -19,14 +20,12 @@ private:
 	// 输出
 	double output;
 	// 声明输入，权重列表
-	vector<double> inputs, weights;
+	vector<double,gc_allocator<double>> inputs, weights;
 	// 定义激活函数
 	ActivateFunction AC;
 
 public:
 	Neuron();
-	// 析构函数
-	~Neuron();
 	// 构建带有随机偏置和权重的神经元
 	Neuron(const int numInputs);
 	// 初始化空白神经元
@@ -38,9 +37,9 @@ public:
 	// 获取输出
 	double getOutput();
 	// 获取输入
-	vector<double> getInputs();
+	vector<double,gc_allocator<double>> getInputs();
 	// 获取权重
-	vector<double> getWeights();
+	vector<double,gc_allocator<double>> getWeights();
 	// 获取激活函数
 	ActivateFunction getActivateFunction();
 	// 设置输入个数
@@ -48,11 +47,11 @@ public:
 	// 设置偏置
 	void setBias(const double nbias);
 	// 设置隐含层或输出层输入
-	void setInputs(const vector<double> &ninputs);
+	void setInputs(const vector<double,gc_allocator<double>> &ninputs);
 	// 设置输入层的输入
 	void setInput(const double ninput);
 	// 设置权重
-	void setWeights(const vector<double> &nweights);
+	void setWeights(const vector<double,gc_allocator<double>> &nweights);
 	// 设置激活函数
 	void setActivateFunction(const ActivateFunction &nac);
 	// 设置输入个数

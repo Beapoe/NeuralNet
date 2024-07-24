@@ -10,8 +10,8 @@ int main()
     const clock_t begin = clock();
     DataSet set = DataSet();
     set.LoadEMnist();
-    vector<int> num_h_neurons = {10, 5};
-    vector<ActivateFunction> ahac = {leaky_relu, hyperTan};
+    vector<int,gc_allocator<int>> num_h_neurons = {10, 5};
+    vector<ActivateFunction,gc_allocator<ActivateFunction>> ahac = {leaky_relu, hyperTan};
     NeuralNet nn(2, 10, 784, num_h_neurons, 10, ahac, relu);
     nn.setData(set);
     set.~DataSet();

@@ -6,6 +6,7 @@
 #include <vector>
 #include <cstdint>
 #include <stdexcept>
+#include "bdwgc/include/gc/gc_allocator.h"
 using namespace std;
 
 class DataSet
@@ -52,16 +53,17 @@ private:
     // 训练集图像列数
     int TrainImageColsnum = 0;
     // 训练集图像数据
-    vector<vector<double>> TrainImages;
+    vector<vector<double,gc_allocator<double>>,gc_allocator<vector<double,gc_allocator<double>>>> TrainImages;
     // 测试集图像数据
-    vector<vector<double>> TestImages;
+    vector<vector<double,gc_allocator<double>>,gc_allocator<vector<double,gc_allocator<double>>>> TestImages;
     // 训练集标签数据
-    vector<double> Trainlabels;
+    vector<int,gc_allocator<int>> Trainlabels;
     // 测试集标签数据
-    vector<double> TestLabels;
+    vector<int,gc_allocator<int>> TestLabels;
 
     // 从文件流中读取大端序的整数
     int ReverseInt(int i);
+    // 准备文件路径
     void preparePath();
     // 读取文件头
     void readHeader();
@@ -71,20 +73,16 @@ private:
     void readLabels();
 
 public:
-    // 构建函数
-    DataSet();
-    // 析构函数
-    ~DataSet();
     // 载入EMnist数据集
     void LoadEMnist();
     // 获取训练集图像数据
-    vector<vector<double>> getTrainImages();
+    vector<vector<double,gc_allocator<double>>,gc_allocator<vector<double,gc_allocator<double>>>> getTrainImages();
     // 获取测试集图像数据
-    vector<vector<double>> getTestImages();
+    vector<vector<double,gc_allocator<double>>,gc_allocator<vector<double,gc_allocator<double>>>> getTestImages();
     // 获取训练集标签数据
-    vector<double> getTarinLabels();
+    vector<int,gc_allocator<int>> getTarinLabels();
     // 获取测试集标签数据
-    vector<double> getTestLabels();
+    vector<int,gc_allocator<int>> getTestLabels();
 };
 
 #endif
