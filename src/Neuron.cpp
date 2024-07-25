@@ -1,8 +1,7 @@
 #include "Neuron.h"
 using namespace std;
 
-Neuron::Neuron() {}
-Neuron::Neuron(const int numInputs)
+void n_init(Neuron& n,const int numInputs)
 {
 	random_device rd;
 	double weight, nbias;
@@ -14,126 +13,105 @@ Neuron::Neuron(const int numInputs)
 	{
 		if (i == numInputs - 1)
 		{
-			bias = b(gen);
+			n.n_bias = b(gen);
 			countinue = false;
 		}
-		weight = w(gen);
-		weights.push_back(weight);
+		n.n_weights.push_back(w(gen));
 	}
 }
 
-void Neuron::init(const int numInputs)
+void n_calc(Neuron& n)
 {
-	random_device rd;
-	double weight, nbias;
-	uniform_real_distribution<double> w(-1, 1);
-	uniform_real_distribution<double> b(0, 1);
-	mt19937 gen(rd());
-	bool countinue = true;
-	for (int i = 0; i < numInputs && countinue; i++)
-	{
-		if (i == numInputs - 1)
-		{
-			bias = b(gen);
-			countinue = false;
-		}
-		weight = w(gen);
-		weights.push_back(weight);
-	}
-}
-
-void Neuron::calc()
-{
-	if (inputs.size() != 0)
+	if (n.n_inputs.size() != 0)
 	{
 		double total;
-		for (int i = 0; i < inputs.size(); i++)
+		for (int i = 0; i < n.n_inputs.size(); i++)
 		{
-			total += inputs[i] * weights[i];
+			total += n.n_inputs[i] * n.n_weights[i];
 		}
-		total = total - bias;
-		if (AC != null)
+		total = total - n.n_bias;
+		if (n.n_AC != null)
 		{
-			switch (AC)
+			switch (n.n_AC)
 			{
 			case hyperTan:
-				output = HyperTan(total);
+				n.n_output = HyperTan(total);
 				break;
 			case hardThreshold:
-				output = HardThreshold(total);
+				n.n_output = HardThreshold(total);
 				break;
 			case relu:
-				output = Relu(total);
+				n.n_output = Relu(total);
 				break;
 			case leaky_relu:
-				output = Leaky_Relu(total);
+				n.n_output = Leaky_Relu(total);
 				break;
 			}
 		}
 		else
 		{
-			output = total;
+			n.n_output = total;
 		}
 	}
 }
 
-double Neuron::getBias()
+double n_getBias(Neuron& n)
 {
-	return bias;
+	return n.n_bias;
 }
 
-double Neuron::getOutput()
+double n_getOutput(Neuron& n)
 {
-	return output;
+	return n.n_output;
 }
 
-vector<double,gc_allocator<double>> Neuron::getInputs()
+vector<double,gc_allocator<double>> n_getInputs(Neuron& n)
 {
-	return inputs;
+	return n.n_inputs;
 }
 
-vector<double,gc_allocator<double>> Neuron::getWeights()
+vector<double,gc_allocator<double>> n_getWeights(Neuron& n)
 {
-	return weights;
+	return n.n_weights;
 }
 
-ActivateFunction Neuron::getActivateFunction()
+ActivateFunction n_getActivateFunction(Neuron& n)
 {
-	return AC;
+	return n.n_AC;
 }
 
-int Neuron::getNumInputs()
+int n_getNumInputs(Neuron& n)
 {
-	return numInputs;
+	return n.n_num_inputs;
 }
 
-void Neuron::setBias(const double nbias)
+void n_setBias(Neuron& n,const double nbias)
 {
-	bias = nbias;
+	n.n_bias = nbias;
 }
 
-void Neuron::setInputs(const vector<double,gc_allocator<double>> &ninputs)
+void n_setInputs(Neuron& n,const vector<double,gc_allocator<double>> &ninputs)
 {
-	inputs = ninputs;
+	n.n_inputs = ninputs;
 }
 
-void Neuron::setInput(const double ninput)
+void n_setInput(Neuron& n,const double ninput)
 {
-	inputs.clear();
-	inputs.push_back(ninput);
+	n.n_inputs.clear();
+	n.n_inputs.push_back(ninput);
 }
 
-void Neuron::setWeights(const vector<double,gc_allocator<double>> &nweights)
+void n_setWeights(Neuron& n,const vector<double,gc_allocator<double>> &nweights)
 {
-	weights = nweights;
+	n.n_weights = nweights;
 }
 
-void Neuron::setActivateFunction(const ActivateFunction &nac)
+void n_setActivateFunction(Neuron& n,const ActivateFunction &nac)
 {
-	AC = nac;
+	n.n_AC = nac;
 }
 
-void Neuron::setNumInputs(int nnuminputs)
+void n_setNumInputs(Neuron& n,int nnuminputs)
 {
-	numInputs = nnuminputs;
+	n.n_num_inputs = nnuminputs;
 }
