@@ -58,4 +58,16 @@ public:
 	void setNumInputs(const int nnuminputs);
 };
 
+struct Neuron{
+    //定义输入
+    vector<double,gc_allocator<double>> neuron_inputs;
+    //定义输入个数
+    int neuron_num_inputs;
+    //定义偏置
+    double neuron_bias;
+    //定义输出
+    double neuron_output
+    //定义权重
+    vector<double,gc_allocator<double>> neuron_weights
+}
 #endif
